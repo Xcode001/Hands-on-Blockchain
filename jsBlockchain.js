@@ -7,4 +7,9 @@ class Block {
         this.data = data;
         this.previousHash = previousHash;
     }
+
+    calculateHash(){
+        // we will be using the SHA256 cryptographic function to generate the hash of this block
+        return SHA256(this.index + this.timestamp + this.previousHash + JSON.stringify(this.data)).toString();
+    }
 }
