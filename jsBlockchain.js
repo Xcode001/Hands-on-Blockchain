@@ -23,5 +23,25 @@ class BlockChain{
     createGenesisBlock(){
         return new Block(0, "11/3/2018", "This is the genesis block", "0");
     }
+/******************************************************************** */
+    // Adding consecutive blocks to the Block chain
+    // 1. new Block object
+    // 2. the hash of the previous block
+    // 3. calculate the hash of the current block
+/*********************************************************************** */
+    
+// Function returns hash of the previous block
+    getLatestBlock(){
+        return this.chain[this.chain.length - 1];
+    }
+
+// Implementation of the above procedures
+    addBlock(newBlock){
+        newBlock.previousHash = this.getLatestBlock().hash; //hash of previous block
+        newBlock.hash = newBlock.calculateHash(); //hash of current block
+        this.chain.push(newBlock); //push the block the the chain of blocks
+    }
+
+
 }
 
