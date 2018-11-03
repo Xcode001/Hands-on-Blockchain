@@ -14,3 +14,14 @@ class Block {
     }
 }
 
+class BlockChain{
+    constructor(){
+        //the first variable of the array will be the genesis block block, created manually
+        this.chain = [this.createGenesisBlock()];
+    }
+
+    createGenesisBlock(){
+        return new Block(0, "11/3/2018", "This is the genesis block", "0");
+    }
+}
+
