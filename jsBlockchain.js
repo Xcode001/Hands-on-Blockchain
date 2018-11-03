@@ -5,7 +5,8 @@ class Block {
         this.index = index;
         this.timestamp = timestamp;
         this.data = data;
-        this.previousHash = previousHash;
+        this.previousHash = previousHash
+        this.hash = this.calculateHash();
     }
 
     calculateHash(){
@@ -69,7 +70,13 @@ myBlockChain.addBlock(block1);
 myBlockChain.addBlock(block2);
 
 console.log(JSON.stringify(myBlockChain,null,4));
-console.log("Validation check for the Block Chain: " +myBlockChain.checkBlockChainValid());
+console.log("Validation check for the Block Chain before hacking: " +myBlockChain.checkBlockChainValid());
+
+myBlockChain.chain[1].data = {mybalance :6000};
+console.log(JSON.stringify(myBlockChain, null, 4));
+console.log("Validation check for the Block Chain before hacking: " + myBlockChain.checkBlockChainValid());
+
+
 
 
 
