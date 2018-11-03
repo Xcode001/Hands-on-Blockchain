@@ -7,11 +7,22 @@ class Block {
         this.data = data;
         this.previousHash = previousHash
         this.hash = this.calculateHash();
+        this.nonce = 0;
     }
 
     calculateHash(){
         // we will be using the SHA256 cryptographic function to generate the hash of this block
-        return SHA256(this.index + this.timestamp + this.previousHash + JSON.stringify(this.data)).toString();
+        return SHA256(this.index + this.timestamp + this.previousHash + JSON.stringify(this.data)+this.nonce).toString();
+    }
+
+    mineNewBlock(difficulty){ //diffulty - is the number of zero
+        while (this.hash.substring(0, difficulty) !== Array(difficulty + 1).join("0")) {
+            this.nonce++;
+            this.hash = this.calculateHash();
+            //00000xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        }
+        console.log("A new block was mined with hash "+this.hash);
+        
     }
 }
 
@@ -19,6 +30,7 @@ class BlockChain{
     constructor(){
         //the first variable of the array will be the genesis block block, created manually
         this.chain = [this.createGenesisBlock()];
+        this.difficulty = 5;
     }
 
     createGenesisBlock(){
@@ -39,7 +51,7 @@ class BlockChain{
 // Implementation of the above procedures
     addBlock(newBlock){
         newBlock.previousHash = this.getLatestBlock().hash; //hash of previous block
-        newBlock.hash = newBlock.calculateHash(); //hash of current block
+        newBlock.mineNewBlock(this.difficulty);
         this.chain.push(newBlock); //push the block the the chain of blocks
     }
 
@@ -65,17 +77,17 @@ class BlockChain{
 let block1 = new Block(1, "12/3/2018",{mybalance: 100});
 let block2 = new Block(2, "13/3/2018", {mybalance: 50});
 
+//Create a new block chain
 let myBlockChain = new BlockChain();
+
+
+//Adding the new blocks to the block chain
+console.log("the first block creation");
 myBlockChain.addBlock(block1);
+console.log("\nthe second block creation");
 myBlockChain.addBlock(block2);
 
-console.log(JSON.stringify(myBlockChain,null,4));
-console.log("Validation check for the Block Chain before hacking: " +myBlockChain.checkBlockChainValid());
-
-myBlockChain.chain[1].data = {mybalance :6000};
 console.log(JSON.stringify(myBlockChain, null, 4));
-console.log("Validation check for the Block Chain before hacking: " + myBlockChain.checkBlockChainValid());
-
 
 
 
