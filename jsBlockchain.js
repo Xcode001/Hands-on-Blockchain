@@ -41,7 +41,15 @@ class BlockChain{
         newBlock.hash = newBlock.calculateHash(); //hash of current block
         this.chain.push(newBlock); //push the block the the chain of blocks
     }
-
-
 }
+
+let block1 = new Block(1, "12/3/2018",{mybalance: 100});
+let block2 = new Block(2, "13/3/2018", {mybalance: 50});
+
+let myBlockChain = new BlockChain();
+myBlockChain.addBlock(block1);
+myBlockChain.addBlock(block2);
+
+console.log(JSON.stringify(myBlockChain,null,4));
+
 
