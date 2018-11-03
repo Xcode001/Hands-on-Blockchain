@@ -1,0 +1,11 @@
+{
+  "name": "Blockchain_Course",
+  "version": "1.0.0",
+  "description": "A Course on BlockChain",
+  "main": "jsBlockchain.js",
+  "author": "Musa Musa <musamusa739@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "crypto-js": "^3.1.9-1"
+  }
+}
